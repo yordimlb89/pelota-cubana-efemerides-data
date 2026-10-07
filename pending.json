@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "key": "pending-chapman-postseason-2026",
+      "name": "Aroldis Chapman",
+      "status": "pending-exact-event-date-and-official-history",
+      "claim": "Revisar la participación en la postemporada de 2026 y su posición histórica entre nacidos en Cuba.",
+      "source": "https://www.cibercuba.com/noticias/2026-10-01-u1-e197721-s27066-nid341654-aroldis-chapman-impone-record-cuba-al-disputar",
+      "checkedAt": "2026-10-07",
+      "reason": "El artículo es del 1 de octubre; falta confirmar el día de la primera aparición y el conteo histórico antes de publicar la marca."
+    },
+    {
+      "key": "pending-cocabe-2021-quesada-cuba",
+      "name": "Pavel Rafael Quesada / Selección de Cuba",
+      "status": "pending-exact-event-date",
+      "claim": "Pavel Quesada MVP y Cuba subcampeón de la III Copa Caribe (2021).",
+      "source": "https://pelota-cubana-stats.yordimlb.chatgpt.site/?league=cocabe",
+      "sourceDocument": "III_COPA_RESUMEN.pdf",
+      "sourceSHA256": "08ea4f83ecfc23f5b40a4b961bb90f8b107077232055814c29f2db080305db01",
+      "sourcePages": [
+        1,
+        2
+      ],
+      "checkedAt": "2026-10-07",
+      "reason": "El resumen confirma el MVP y la posición final, pero no publica el día exacto. No se asigna una fecha supuesta."
+    }
+  ]
+}
