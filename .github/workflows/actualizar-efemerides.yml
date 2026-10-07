@@ -1,0 +1,43 @@
+name: Actualizar efemerides sin IA
+on:
+  schedule:
+    - cron: '0 6 * * *'
+      timezone: America/New_York
+  workflow_dispatch:
+  push:
+    paths:
+      - 'update.py'
+      - 'detector.py'
+      - 'test_update.py'
+      - '.github/workflows/actualizar-efemerides.yml'
+permissions:
+  contents: write
+concurrency:
+  group: efemerides-datos
+  cancel-in-progress: false
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Comprobar reglas y preservar el archivo
+        run: python -m unittest -v test_update.py
+      - name: Consultar fuentes oficiales
+        run: python -u update.py --days 7
+      - name: Validar resultado
+        run: python update.py --validate-only
+      - name: Publicar solo cambios de efemerides
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data.json
+          if test -f automatic-pending.json; then git add automatic-pending.json; fi
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Actualizar efemerides verificadas sin IA'
+          git push origin HEAD:main
