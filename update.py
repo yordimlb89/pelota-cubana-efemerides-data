@@ -151,7 +151,11 @@ def refresh(previous, pending, days=7, getter=fetch):
         assert 'dates' in schedule and 'totalGames' in schedule, 'Invalid schedule'
         for day in schedule['dates']:
             for game in day['games']:
-                if game['status']['abstractGameState'] == 'Final' and game['gameType'] in ('R','F','D','L','W'):
+                # MLB also labels postponed/cancelled games as abstract "Final".
+                # Only coded F confirms a final boxscore (including completed-early games).
+                if (game['status']['abstractGameState'] == 'Final'
+                        and game['status'].get('codedGameState') == 'F'
+                        and game['gameType'] in ('R','F','D','L','W')):
                     games[game['gamePk']] = (game, league)
     removable = set()
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
